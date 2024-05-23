@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: finalProject
+  datasource:
+#   MYSQL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://54.180.149.92:3306/test
+    username: possible12
+    password: final12345!
+
+#   SERVER
+server:
+  port: 9000
+
+#    JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+#        ?????? ??? ?? ?? ??? . 
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        use-new-id-generator-mappings: true
+    database: mysql
+
+#   security
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: #?????? ???? ????? ???? ID
+            client-secret: #?????? ???? ????? ???? ?????
+            scope:
+              - email
+              - profile
+          # ???? ????? provider ? ???. ??? ???? ?? ??? ??. ???? ??.
+          naver:
+            client-id: gdXWuOwUhNlkssozja_v
+            client-secret: v9PvnnnwWC
+            scope:
+              - name
+              - email
+            client-name: Naver
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8090/login/oauth2/code/naver
+
+
+# LOGGING
+logging:
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.type: trace
+
+#mail
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: inhwan3596@gmail.com
+  password: hbvg tdtb bazp zqyu
+  properties:
+    mail:
+      smtp:
+        starttls:
+          enable: true
+        auth: true
