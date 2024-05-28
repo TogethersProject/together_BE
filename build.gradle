@@ -31,6 +31,22 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // myBatis 안쓰면 없앨 것!
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+    //썸네일. 0.4.8
+    // https://mvnrepository.com/artifact/net.coobird/thumbnailator
+    implementation 'net.coobird:thumbnailator:0.4.8'
+
+    //objectStorage
+    //implementation platform('software.amazon.awssdk:bom:2.20.0')
+    //implementation 'software.amazon.awssdk:s3'
+    // https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-starter-aws
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
+
+
 }
 
 tasks.named('test') {

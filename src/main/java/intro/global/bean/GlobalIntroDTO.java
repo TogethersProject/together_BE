@@ -31,8 +31,9 @@ public class GlobalIntroDTO {
     private String title;
     @Column(
             name = "content",
-            nullable = false,
-            length = 9999999
+            nullable = false
+            //,length = Integer.MAX_VALUE
+            ,length = 1000
     )
     private String content;
     @Id

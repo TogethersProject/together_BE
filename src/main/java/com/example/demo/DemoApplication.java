@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ComponentScan(
-        basePackages = {"intro.global.*"}
+        basePackages = {"intro.global.*","spring.conf"}
 )
 @EntityScan({"intro.global.bean"})
 @EnableJpaRepositories({"intro.global.DAO"})
