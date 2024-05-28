@@ -1,14 +1,12 @@
-package intro.global.bean;
+package com.together.board.bean;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.math.BigInteger;
-
 @Entity
-@Table( name = "image" )
+@Table( name = "board_image" )
 @Getter
 @Setter
 @ToString
@@ -36,4 +34,10 @@ public class ImageDTO {
             nullable = false
     )
     private String directory;
+
+    @Column(
+            name="board_seq"
+            ,nullable=false
+    )
+    private int boardSeq;
 }

@@ -1,4 +1,4 @@
-package intro.global.bean;
+package com.together.board.bean;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -6,11 +6,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table( name = "globalintro" )
+@Table( name = "board" )
 @Getter
 @Setter
 @ToString
-public class GlobalIntroDTO {
+public class BoardDTO {
     @Column(
             name = "name",
             nullable = false,
@@ -40,5 +40,5 @@ public class GlobalIntroDTO {
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    private Long seq;
+    private int seq;
 }

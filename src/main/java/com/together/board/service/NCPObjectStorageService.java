@@ -1,4 +1,4 @@
-package intro.global.service;
+package com.together.board.service;
 
 import java.io.InputStream;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package intro.global.bean;
+package com.together.board.bean;
 
 import org.springframework.stereotype.Component;
 

@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @ComponentScan(
-        basePackages = {"intro.global.*","spring.conf"}
+        basePackages = {"com.together.board.*","spring.conf"}
 )
-@EntityScan({"intro.global.bean"})
-@EnableJpaRepositories({"intro.global.DAO"})
+@EntityScan({"com.together.board.bean"})
+@EnableJpaRepositories({"com.together.board.DAO"})
 @SpringBootApplication
 public class DemoApplication {
 

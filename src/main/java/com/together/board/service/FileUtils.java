@@ -1,4 +1,4 @@
-package intro.global.service;
+package com.together.board.service;
 
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,27 +1,22 @@
-package intro.global.service;
+package com.together.board.service;
 
-import intro.global.DAO.GlobalDAO;
-import intro.global.DAO.ImageDAO;
-import intro.global.bean.GlobalIntroDTO;
-import intro.global.bean.ImageDTO;
-import jakarta.servlet.http.HttpSession;
+
+import com.together.board.DAO.BoardDAO;
+import com.together.board.DAO.ImageDAO;
+import com.together.board.bean.BoardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.math.BigInteger;
 import java.util.*;
 
 @Service
-public class GlobalServiceImpl implements GlobalService{
+public class BoardServiceImpl implements BoardService {
     @Autowired
-    private GlobalDAO globalDAO;
+    private BoardDAO globalDAO;
     @Autowired
     private ImageDAO imageDAO;
     @Autowired
@@ -29,19 +24,21 @@ public class GlobalServiceImpl implements GlobalService{
     @Autowired
     private FileUtils fUtils;
     private String bucketName = "bitcamp-6th-bucket-105";
+    @Autowired
+    private BoardDAO boardDAO;
 
 
-    public GlobalServiceImpl() {
+    public BoardServiceImpl() {
     }
 
-    public void writeGlobal(GlobalIntroDTO globalIntroDTO) {
+    public void writeBoard(BoardDTO boardDTO) {
         System.out.println("글작성 서비스 진입");
-        System.out.println(globalIntroDTO.toString());
-        this.globalDAO.save(globalIntroDTO);
+        System.out.println(boardDTO.toString());
+        this.globalDAO.save(boardDTO);
     }
 
-    public Page<GlobalIntroDTO> getWriteList(Pageable pageable) {
-        Page<GlobalIntroDTO> list = this.globalDAO.findAll(pageable);
+    public Page<BoardDTO> getWriteList(Pageable pageable) {
+        Page<BoardDTO> list = this.globalDAO.findAll(pageable);
         return list;
     }
 
@@ -66,5 +63,10 @@ public class GlobalServiceImpl implements GlobalService{
 
 
         return json;
+    }
+
+    @Override
+    public void deleteBoard(BigInteger seq) {
+        boardDAO.deleteById(seq);
     }
 }
