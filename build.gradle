@@ -46,7 +46,10 @@ dependencies {
     // https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-starter-aws
     implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
 
-
+    // JAXB API 추가: Java 9이상 사용시 포함되지 않는 라이브러리.
+    // AWS는 자체구현으로 대체하나 성능이 뛰어나지 않음.
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
 }
 
 tasks.named('test') {
