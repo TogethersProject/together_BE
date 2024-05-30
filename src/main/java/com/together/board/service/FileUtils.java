@@ -51,7 +51,7 @@ public class FileUtils {
     public List<String> extractImageUuids(String content, String directoryPath) {
         List<String> uuids = new ArrayList<>();
         String path = serverPath + bucketName + directoryPath;
-        //System.out.println("path(uuid추출):"+path);
+        System.out.println("path(uuid추출):"+path);
         //uuid 추출을 위한 정규식
         Pattern pattern = Pattern.compile(path + "/([\\w-]+)(\\.jpg|\\.png|\\.jpeg|\\.gif)?");
         Matcher matcher = pattern.matcher(content);
@@ -60,7 +60,7 @@ public class FileUtils {
             uuids.add(matcher.group(1)); // UUID 추출
         }
 
-        //System.out.println("uuid:"+uuids);
+        System.out.println("uuid:"+uuids);
         return uuids;
     }
 

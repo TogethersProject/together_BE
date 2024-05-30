@@ -80,7 +80,7 @@ public class BoardController {
     @PostMapping(path = {"updateBoard"})
     public void updateBoard(@RequestBody Map<String, Object> requestData){
         //System.out.println("글 수정할게요 controller");
-        //System.out.println("Request Data: " + requestData); // 디버깅을 위한 출력
+        System.out.println("Request Data: " + requestData); // 디버깅을 위한 출력
 
         List<String> imageNamesBefore = (List<String>) requestData.get("imageNamesBefore");
         BoardDTO boardDTO = new ObjectMapper().convertValue(requestData.get("board"), BoardDTO.class);

@@ -109,7 +109,7 @@ public class BoardServiceImpl implements BoardService {
     //글 수정을 위해 글 정보 및 이미지 정보 전달.
     @Override
     public Map<String, Object> getUpdateBoard(BigInteger seq) {
-        //System.out.println("getBoard(Service)");
+        System.out.println("getBoard(Service)");
         Map<String, Object> map= new HashMap<>();
 
         //필요한 글 정보를 받음
@@ -134,7 +134,7 @@ public class BoardServiceImpl implements BoardService {
     //글 수정: 새로 업로드한 이미지는 temp -> test 이동. 없앤 이미지는 test -> 삭제. 글 정보 수정하여 갱신.
     @Override
     public void updateBoard(List<String> imageNamesBefore, BoardDTO boardDTO) {
-        //System.out.println("이미지 안쓸거니까 이제 없애고 수정한 글 저장한다 updateBoard(Service)");
+        System.out.println("이미지 안쓸거니까 이제 없애고 수정한 글 저장한다 updateBoard(Service)");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         //이미지는 가장 최근에 갱신된 날짜 폴더에 모두 저장되어 있음. 갱신한 적이 없으면 첫 글 작성 날짜 폴더, 갱신한 적이 있으면 마지막으로 갱신한 날짜 폴더에서 이미지를 찾음.
         String boardTime= dateFormat.format( boardDTO.getBoard_lastTime() == null ? boardDTO.getBoard_time() : boardDTO.getBoard_lastTime());
@@ -146,7 +146,7 @@ public class BoardServiceImpl implements BoardService {
         for (String uuid : imageNamesBefore) {
             //수정하며 사라진 이미지 삭제
             if (!imageNamesOld.contains(uuid)) {
-                System.out.println("수정하며 사라진 이미지:"+uuid);
+                //System.out.println("수정하며 사라진 이미지:"+uuid);
                 //ncp에서 해당 이미지 삭제
                 objectStorageService.deleteObject( uuid,testDir+boardTime);
             }
@@ -157,6 +157,7 @@ public class BoardServiceImpl implements BoardService {
 
         //글에 새롭게 추가한 이미지 저장
         for (String imageName : imageNamesNew) {
+            //System.out.println("새로운 이미지 저장");
             objectStorageService.moveFile(tempDir+boardTimeNew+"/", testDir+boardTimeNew+"/", imageName);
         }
 
@@ -169,6 +170,7 @@ public class BoardServiceImpl implements BoardService {
         String content = boardDTO.getContent();
         Timestamp boardTimePresent = new Timestamp(System.currentTimeMillis());//글 수정 시간.
 
+        System.out.println("수정 보드내용: "+boardDTO+boardTime);
         boardDAO.updateBySeq(seq, title, content, boardTimePresent);
     }
 }

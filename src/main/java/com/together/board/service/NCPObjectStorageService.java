@@ -85,14 +85,19 @@ public class NCPObjectStorageService implements ObjectStorageService {
         String destinationKey = testDirectoryPath + imageName;
 
         try { //temp 파일 -> test 파일
-            s3.copyObject(bucketName,sourceKey, bucketName, destinationKey);
-            System.out.println("파일 " + imageName + "을(를) " + tempDirectoryPath + "에서 " + testDirectoryPath + "로 이동했습니다.");
-            // 이동된 파일에 대해 공개 읽기 권한 설정
-            s3.setObjectAcl(bucketName, destinationKey, CannedAccessControlList.PublicRead);
+            if(!tempDirectoryPath.equals(testDirectoryPath)){
+                //System.out.println("파일 " + imageName + "을(를) " + sourceKey + "-> " + destinationKey + "로 이동하겠습니다.");
+                CopyObjectRequest copyObjRequest = new CopyObjectRequest(bucketName, sourceKey, bucketName, destinationKey)
+                        .withMetadataDirective("COPY");
+                s3.copyObject(copyObjRequest);
+                // 이동된 파일에 대해 공개 읽기 권한 설정
+                s3.setObjectAcl(bucketName, destinationKey, CannedAccessControlList.PublicRead);
 
-            //temp 파일 삭제
-            s3.deleteObject(new DeleteObjectRequest(bucketName, sourceKey));
-            System.out.println("원본 위치의 파일 " + imageName + " 삭제 완료.");
+                //temp 파일 삭제
+                s3.deleteObject(new DeleteObjectRequest(bucketName, sourceKey));
+                //System.out.println("원본 위치의 파일 " + imageName + " 삭제 완료.");
+            }
+
         } catch (AmazonServiceException e) {
             throw new RuntimeException("파일 이동 중 오류 발생", e);
         }

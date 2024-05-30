@@ -22,7 +22,7 @@ public interface BoardDAO extends JpaRepository<BoardDTO, BigInteger> {
     @Modifying
     @Query("UPDATE BoardDTO boardDTO SET boardDTO.title = :title, " +
             "                            boardDTO.content = :content, " +
-            "                            boardDTO.board_lastTime = :boardTimeNew " +
+            "                            boardDTO.board_lastTime = :boardTimePresent " +
             "                        WHERE boardDTO.seq = :seq")
-    void updateBySeq(@Param("seq")int seq, @Param("title")String title, @Param("content")String content, @Param("boardTimePresent") Timestamp boardTimeNew);
+    void updateBySeq(@Param("seq")int seq, @Param("title")String title, @Param("content")String content, @Param("boardTimePresent") Timestamp boardTimePresent);
 }
