@@ -1,0 +1,10 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ç‘ÚÑıÿÿÿÿ8¼Ã‰ğû1J$6d5aeb25-7977-48da-8748-669dfe2dd398
+—	java:S116"URename this field "unp_region" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çü»š8ÀÃ‰ğû1J$a1333ac3-a4d7-4587-8abb-12e048554fa0
+˜	java:S116"WRename this field "unp_shopname" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æĞD8ÀÃ‰ğû1J$c15cfdc1-7f91-44d7-ac78-8ad2488310f2
+	java:S116	"WRename this field "unp_business" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á±Å÷ùÿÿÿÿ8ÀÃ‰ğû1J$2072181c-d8aa-49f3-8e02-d32a6b57e09c
+	java:S116
+"[Rename this field "unp_phone_number" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£Ñ‘ 8ÀÃ‰ğû1J$e70f5272-e763-4509-9d41-0815aed0137a
+˜	java:S116"VRename this field "unp_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿî‚ƒ8ÀÃ‰ğû1J$c31a0e24-974a-4bfb-93d7-3af4c1d845d3
+™	java:S116"WRename this field "unp_discount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£º¼8ÀÃ‰ğû1J$2c21ed87-2c83-40da-8c30-508a90875b0e
+š	java:S116"XRename this field "unp_dismember" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™¹ñ«8ÀÃ‰ğû1J$8d3dfe68-a5ef-4580-b952-ec901f82eb7c

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tfoot>
+<tr>
+    <th rowspan="1" colspan="1">ID</th>
+    <th rowspan="1" colspan="1">이름</th>
+    <th rowspan="1" colspan="1">E-Mail</th>
+    <th rowspan="1" colspan="1">성별</th>
+    <th rowspan="1" colspan="1">생성일자</th>
+    <th rowspan="1" colspan="1">삭제여부</th>
+</tr>
+</tfoot>
+<tbody>
+<tr th:each="shop : ${shopList}" class="shop-item">
+    <td th:text="${shop.unp_region}">ID</td>
+    <td th:text="${shop.unp_shopname}">이름</td>
+    <td th:text="${shop.unp_business}">E-Mail</td>
+    <td th:text="${shop.unp_phone_number}">E-Mail</td>
+    <td th:text="${shop.unp_address}">E-Mail</td>
+    <td th:text="${shop.unp_discount}">E-Mail</td>
+    <td th:text="${shop.unp_dismember}">E-Mail</td>
+</tr>
+</tbody>
+</body>
+</html>
