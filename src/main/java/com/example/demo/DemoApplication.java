@@ -9,10 +9,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @ComponentScan(
         basePackages = {"com.together.board.*"
-                        ,"com.together.common.utils"//공통 유틸리티: 암호화, 파일 처리 등
-                        ,"spring.conf"}
+                ,"com.together.user_calendar.*"
+                ,"com.together.common.utils"//공통 유틸리티: 암호화, 파일 처리 등
+                ,"spring.conf"}
 )
+@EntityScan({"com.together.board.bean"
+        ,"com.together.user_calendar.bean"})
+@EnableJpaRepositories({"com.together.board.DAO"
+        ,"com.together.user_calendar.DAO"})
 @SpringBootApplication
+@EnableScheduling   //일정 시간이 지나면 임시 이미지 저장 폴더 자동 삭제를 위함
 public class DemoApplication {
 
     public static void main(String[] args) {
