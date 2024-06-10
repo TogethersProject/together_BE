@@ -56,6 +56,7 @@ public class BoardServiceImpl implements BoardService {
         String startDir = tempDir+boardTime+"/";
         String destinationDir = testDir+boardTime+"/";
         for (String imageName : imageNames) {
+            System.out.println("이미지 이동 시작");
             objectStorageService.moveFile(startDir, destinationDir, imageName);
         }
         System.out.println("이미지 이동 완료 - 개수: "+ imageNames.toArray().length);
@@ -86,10 +87,14 @@ public class BoardServiceImpl implements BoardService {
 
     //글 삭제. 글 내부 이미지 삭제 -> 글 내용 삭제.
     @Override
-    public void deleteBoard(BigInteger seq) {
+    public String deleteBoard(BigInteger seq, String member_id) {
         //Board 테이블에서 content 및 폴더 추출
         Optional<BoardDTO> boardDTOOptional = boardDAO.findById(seq);
         BoardDTO boardDTO = boardDTOOptional.get();
+        String memberId = boardDTO.getId();
+        if(!memberId.equals(member_id)){
+            return "아이디가 일치하지 않습니다.";
+        }
         String content = boardDTO.getContent();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         String boardTime= dateFormat.format(boardDTO.getBoard_time());//Date -> yyyyMMdd의 String
@@ -104,28 +109,33 @@ public class BoardServiceImpl implements BoardService {
 
         //보드 테이블에서 글 삭제
         boardDAO.deleteById(seq);
+        return "글을 삭제하였습니다.";
     }
 
     //글 수정을 위해 글 정보 및 이미지 정보 전달.
     @Override
-    public Map<String, Object> getUpdateBoard(BigInteger seq) {
+    public Map<String, Object> getUpdateBoard(BigInteger seq, String member_id) {
         System.out.println("getBoard(Service)");
         Map<String, Object> map= new HashMap<>();
 
         //필요한 글 정보를 받음
         Optional<BoardDTO> boardDTOOptional = boardDAO.findById(seq);
+        
         if(boardDTOOptional != null){
             BoardDTO boardDTO = boardDTOOptional.get();
-            String content =boardDTO.getContent();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            String boardTime= dateFormat.format(boardDTO.getBoard_time());//Date -> yyyyMMdd의 String
+            if(boardDTOOptional.get().getId().equals(member_id)){//글 작성자 = 글 수정자
+                String content =boardDTO.getContent();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                String boardTime= dateFormat.format(boardDTO.getBoard_time());//Date -> yyyyMMdd의 String
 
-            //content에서 이미지 uuid 탐색하여 리스트에 담음
-            List<String> imageNames = fUtils.extractImageUuids(content,testDir+boardTime);
+                //content에서 이미지 uuid 탐색하여 리스트에 담음
+                List<String> imageNames = fUtils.extractImageUuids(content,testDir+boardTime);
 
-            //map에 담음.
-            map.put("boardDTO", Optional.of(boardDTO));//BoardDTO -> Optional<BoardDTO>
-            map.put("imageList", imageNames);//처음에 가지고 있는 이미지 목록.
+                //map에 담음.
+                map.put("boardDTO", Optional.of(boardDTO));//BoardDTO -> Optional<BoardDTO>
+                map.put("imageList", imageNames);//처음에 가지고 있는 이미지 목록.
+            }
+            
         }
 
         return map;

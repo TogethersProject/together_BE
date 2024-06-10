@@ -18,11 +18,11 @@ public interface BoardService {
 
     Map<String, Object> uploadImageToTemp(MultipartFile multipartFile) throws Exception;
 
-    void deleteBoard(BigInteger seq);
+    String deleteBoard(BigInteger seq, String member_id);
 
     void writeImageToTest(String content, String boardTime);
 
-    Map<String, Object> getUpdateBoard(BigInteger seqInt);
+    Map<String, Object> getUpdateBoard(BigInteger seqInt, String member_id);
 
     void updateBoard(List<String> imageNamesBefore, BoardDTO boardDTO);
 }

@@ -50,19 +50,33 @@ public class FileUtils {
     //content에서 uuid 추출
     public List<String> extractImageUuids(String content, String directoryPath) {
         List<String> uuids = new ArrayList<>();
+        if(content == null){
+            System.out.println("content가 비어있습니다. 글 내용을 넣어주세요.");
+            return uuids;
+        }
+
         String path = serverPath + bucketName + directoryPath;
-        System.out.println("path(uuid추출):"+path);
-        //uuid 추출을 위한 정규식
+        //System.out.println(uuids + "path(uuid추출):" + path);
+
+        // uuid 추출을 위한 정규식
         Pattern pattern = Pattern.compile(path + "/([\\w-]+)(\\.jpg|\\.png|\\.jpeg|\\.gif)?");
+        //System.out.println("pattern: " + pattern);
         Matcher matcher = pattern.matcher(content);
 
         while (matcher.find()) {
-            uuids.add(matcher.group(1)); // UUID 추출
+            String uuid = matcher.group(1); // uuid 추출
+            //System.out.println("uuid추출해 리스트에 넣을 거임: " + uuid);
+            if (uuid != null && !uuid.isEmpty()) {
+                uuids.add(uuid); // UUID 저장
+                //System.out.println("uuid 넣었음");
+            }
         }
 
-        System.out.println("uuid:"+uuids);
+        //System.out.println("uuid:" + uuids);
         return uuids;
     }
+
+
 
     // 확장자 얻어오기
     public String getExt(String fileNm) {

@@ -1,16 +1,13 @@
-package com.together.user_calendar.DAO;
+package com.together.calendar.DAO;
 
-import com.together.board.bean.BoardDTO;
-import com.together.user_calendar.bean.User_calendarDTO;
+import com.together.calendar.bean.User_calendarDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 

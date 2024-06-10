@@ -1,7 +1,7 @@
-package com.together.user_calendar.service;
+package com.together.calendar.service;
 
-import com.together.user_calendar.DAO.CalendarDAO;
-import com.together.user_calendar.bean.User_calendarDTO;
+import com.together.calendar.DAO.CalendarDAO;
+import com.together.calendar.bean.User_calendarDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,11 @@ public class CalendarServiceImpl implements CalendarService{
 
     @Override
     public void writeCalendar(User_calendarDTO calendarDTO) {
+        System.out.println("서비스 연결 된다");
+        System.out.println("배경색이 뭐니: " + calendarDTO.getBackgroundColor());
+        if(calendarDTO.getBackgroundColor()==null){
+            calendarDTO.setBackgroundColor("pink");
+        }
         calendarDTO.setBorderColor(calendarDTO.getBackgroundColor());
         System.out.println("캘린더 저장합니다: "+calendarDTO);
         calendarDAO.save(calendarDTO);
@@ -76,7 +81,14 @@ public class CalendarServiceImpl implements CalendarService{
 
     @Override
     public Optional<User_calendarDTO> getOneCalendar(Integer id) {
+        System.out.println("캘린더1개 서비스 들어왓다");
+        System.out.println(calendarDAO);
+
         Optional<User_calendarDTO> userDTO = calendarDAO.findById(id);
+        if (userDTO.isEmpty()) {
+            System.out.println("캘린더 데이터가 없습니다.");
+            return Optional.empty();
+        }
         System.out.println(userDTO);
         return userDTO;
     }

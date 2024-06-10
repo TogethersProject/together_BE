@@ -1,9 +1,7 @@
 package com.together.board.bean;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -13,6 +11,8 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+//이 dto 클래스와 이 dto 클래스를 상속 받은 클래스에서만 접근이 가능함.
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 //게시글 테이블
 public class BoardDTO {
     //글 번호이자 테이블의 pk

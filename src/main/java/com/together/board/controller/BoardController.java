@@ -4,11 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.together.board.bean.BoardDTO;
 import com.together.board.service.BoardService;
 import com.together.board.service.FileUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,13 +31,40 @@ import java.util.Map;
         path = {"board"}
 )
 public class BoardController {
+    private static final Logger log = LoggerFactory.getLogger(BoardController.class);
     @Autowired
     private BoardService boardService;
 
+    @GetMapping(path="test1")
+    public String test1(String str){
+        System.out.println("테스트1 " + str);
+        log.info("테스트1임당 " + str);
+        return "test1 " + str;
+    }
+    @Secured("ROLE_USER")
+    @GetMapping(path="test2")
+    public String test2(String str){
+        System.out.println("테스트2 " + str);
+        log.info("테스트2임당 " + str);
+        return "test2 " + str;
+    }
+    @GetMapping(path="test3")
+    public String test3(String str){
+        System.out.println("테스트3 " + str);
+        log.info("테스트3임당 " + str);
+        return "test3 " + str;
+    }
+
     //게시글 작성. 작성 시 이미지를 temp -> test 폴더로 이동, 글 내용의 img 태그의 src를 갱신한다
+    @Secured("ROLE_USER")
     @PostMapping(path = {"writeBoard"})
-    public void writeBoard(@ModelAttribute BoardDTO boardDTO) {
-        System.out.println("글작성 컨트롤러 진입");
+    public void writeBoard(@RequestBody BoardDTO boardDTO, Authentication authentication) {
+        System.out.println("글작성 컨트롤러 진입: " +boardDTO);
+        if(authentication.isAuthenticated()){
+            System.out.println("권한을 확인하겠습니다.: " + authentication);
+        }else{
+            System.out.println("권한이 없습니다.");
+        }
         FileUtils fileUtils = new FileUtils();
         try {
             //이미지를 임시폴더에서 영구폴더로 옮기고
@@ -39,7 +72,7 @@ public class BoardController {
             //img 태그 내 정보를 수정하여 글 저장
             this.boardService.writeBoard(boardDTO);
         } catch (Exception var3) {
-            System.out.println("error/404");
+            System.out.println("error: " + var3);
         }
 
     }
@@ -55,28 +88,32 @@ public class BoardController {
     }
 
     //이미지 저장
+    //@Secured("ROLE_USER")
     @PostMapping(path={"writeImage"})
     public Map<String, Object> writeImageToTemp(@RequestParam("upload") MultipartFile file) throws Exception {
         return boardService.uploadImageToTemp(file);
     }
 
     //글 삭제. 글 내부 img 태그 내용을 통해 서버에서 이미지를 삭제한 후 글 내용을 삭제함.
+    @Secured("ROLE_USER")
     @PostMapping(path={"deleteBoard"})
-    public void deleteBoard(@RequestParam("seq") String seq){
+    public String deleteBoard(@RequestParam("seq") String seq, @RequestParam("member_id")String member_id){
         //System.out.println("delete controller: "+seq);
         BigInteger seqInt = new BigInteger(seq);
-        boardService.deleteBoard(seqInt);
+        return boardService.deleteBoard(seqInt, member_id);
     }
 
     //게시글 수정을 위한 게시글 1개의 정보와 이미지 목록을 전달.
+    @Secured("ROLE_USER")
     @PostMapping(path = {"getUpdateBoard"})
-    public Map<String, Object> getUpdateBoard(@RequestParam("seq") String seq){
+    public Map<String, Object> getUpdateBoard(@RequestParam("seq") String seq, @RequestParam("member_id")String member_id){
         //System.out.println("getBoard(controller):"+seq);
         BigInteger seqInt = new BigInteger(seq);
-        return boardService.getUpdateBoard(seqInt);
+        return boardService.getUpdateBoard(seqInt, member_id);
     }
 
     //게시글 수정. 수정된 이미지 정보를 갱신(필요없어진 이미지 삭제, 필요한 이미지 test 업로드)하고 게시글을 갱신함.
+    @Secured("ROLE_USER")
     @PostMapping(path = {"updateBoard"})
     public void updateBoard(@RequestBody Map<String, Object> requestData){
         //System.out.println("글 수정할게요 controller");

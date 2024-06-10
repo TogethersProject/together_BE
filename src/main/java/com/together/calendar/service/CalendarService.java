@@ -1,6 +1,6 @@
-package com.together.user_calendar.service;
+package com.together.calendar.service;
 
-import com.together.user_calendar.bean.User_calendarDTO;
+import com.together.calendar.bean.User_calendarDTO;
 
 import java.util.Date;
 import java.util.List;
